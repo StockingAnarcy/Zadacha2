@@ -26,7 +26,7 @@ using (goslingreestrContext db = new goslingreestrContext())
         {
             Console.WriteLine($"{d.Id}.{d.Name} - Номер счета: {d.AccNum} - Код операции: {d.SoderzhOper} - Сумма: {d.Summa}.");
         }
-        Console.WriteLine("Сохранить в json? y/n");
+        Console.WriteLine("Сохранить в json или открыть историю операций? y/n/Q");
         //Console.ReadKey();
         if (Console.ReadKey().Key == ConsoleKey.Y)
         {
