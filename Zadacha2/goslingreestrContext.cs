@@ -17,13 +17,14 @@ namespace Zadacha2
         }
 
         public virtual DbSet<Datum> Data { get; set; } = null!;
+        public virtual DbSet<History> Histories { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlite("Data Source=E:\\VSProjects\\Zadacha2\\goslingreestr.db");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlite("Data Source=E:\\\\\\\\VSProjects\\\\\\\\Zadacha2\\\\\\\\goslingreestr.db");
             }
         }
 
@@ -38,6 +39,23 @@ namespace Zadacha2
                 entity.Property(e => e.AccNum).HasColumnName("Acc_num");
 
                 entity.Property(e => e.SoderzhOper).HasColumnName("Soderzh_oper");
+            });
+
+            modelBuilder.Entity<History>(entity =>
+            {
+                entity.ToTable("history");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.DataId).HasColumnName("data_id");
+
+                entity.Property(e => e.Summ).HasColumnName("summ");
+
+                entity.HasOne(d => d.Data)
+                    .WithMany(p => p.Histories)
+                    .HasForeignKey(d => d.DataId);
             });
 
             OnModelCreatingPartial(modelBuilder);
