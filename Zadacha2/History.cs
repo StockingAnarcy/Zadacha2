@@ -10,7 +10,6 @@ namespace Zadacha2
         public long Id { get; set; }
         public long? DataId { get; set; }
         public double? Summ { get; set; }
-
         [JsonIgnore]
         public virtual Datum? Data { get; set; }
     }
